@@ -87,7 +87,7 @@ main {
   background: var(--page);              /* Χρησιμοποιεί το λευκό χρώμα για το φόντο της σελίδας */
   width: 100%;                          /* Κάνει το πλάτος της στήλης 100% της οθόνης */
   margin: 0 auto;                       /* Κεντράρει την κεντρική στήλη (θα έχει 0 περιθώρια από πάνω και κάτω) */
-  min-height: 100dvh;                   /* Εξασφαλίζει ότι η στήλη θα καλύπτει τουλάχιστον το 100% του ύψους της οθόνης */
+  min-height: 800dvh;                   /* Εξασφαλίζει ότι η στήλη θα καλύπτει τουλάχιστον το 100% του ύψους της οθόνης */
   box-shadow: var(--shadow-none);       /* Δεν έχει σκιά για το στοιχείο */
 }
 
@@ -159,8 +159,18 @@ main{
 
 /* Page header spacing like brochure */
 .page-header{ margin-bottom: 1.6rem; }
-.page-header p{ margin-top: .7rem; max-width: 70ch; }
+.page-header p {
+  margin-top: .7rem;
+  max-width: 100%; /* Επιτρέπει στο κείμενο να καταλαμβάνει όλο το πλάτος */
+}
 
+/* Για μικρές οθόνες */
+@media (max-width: 768px) {
+  .page-header p {
+    max-width: 100%; /* Σιγουρεύει ότι το κείμενο παίρνει όλο το πλάτος στην οθόνη */
+    padding: 0 1rem; /* Προσθέτει padding για ευκολότερη ανάγνωση */
+  }
+}
 /* =========================================================
    Cards / Tiles — flat paper, hairlines, no glass
    ========================================================= */
@@ -357,7 +367,7 @@ main{
   background-color: var(--background-color);
   border-radius: 12px;
   box-shadow: 0 4px 20px var(--shadow-color);
-  max-width: 1100px;
+  width: 100%;
   margin: auto;
   flex-wrap: wrap;
 }
@@ -540,10 +550,27 @@ span.error {
 
 /* Responsive Styles for Mobile */
 @media (max-width: 768px) {
-  .fs-inquiry {
-    flex-direction: column;
-    gap: 24px;
+  .fs-inquiry__aside {  /* Αντικατάστησε με την κατάλληλη κλάση για την κάρτα */
+    width: 100%;  /* Αυξάνει το πλάτος της κάρτας */
+    height: auto;  /* Το ύψος προσαρμόζεται με το περιεχόμενο */
+    margin: 10px auto;  /* Κεντράρει την κάρτα */
+    padding: 20px;  /* Περισσότερο padding για άνεση */
+    border-radius: 12px;  /* Στρογγυλεμένες γωνίες για πιο σύγχρονη εμφάνιση */
+    background-color: #fff;  /* Λευκό φόντο για καθαρότητα */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Ελαφριά σκιά για βάθος */
   }
+
+  .fs-inquiry__aside .content {  /* Αντικατάστησε με την κατάλληλη κλάση περιεχομένου */
+    font-size: 1.2rem;  /* Μεγαλύτερο μέγεθος γραμματοσειράς */
+    line-height: 1.6;  /* Καλύτερη αναγνωσιμότητα */
+  }
+
+  /* Κουμπιά στην κάρτα */
+  .fs-inquiry__aside button {  /* Αντικατάστησε με την κατάλληλη κλάση για τα κουμπιά */
+    font-size: 1rem;  /* Μεγαλύτερο μέγεθος γραμματοσειράς */
+    padding: 12px 20px;  /* Προσθήκη padding για ευχρηστία */
+  }
+}
 
   .fs-inquiry__aside {
     width: 100%;
@@ -565,7 +592,6 @@ span.error {
   button[type="submit"] {
     max-width: 100%;
   }
-}
 
 
 /* =========================================================
@@ -803,9 +829,14 @@ body {
 
 /* Section Styles */
 .section {
-  padding: 4rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+
+
+  padding-block: clamp(2.4rem, 6vw, 4.8rem);  /* Κάνει το padding πιο ευέλικτο */
+}
+@media (max-width: 768px) {
+  .section {
+    padding-block: 2rem;  /* Χαμηλότερο padding σε κινητές συσκευές για καλύτερη χρήση του χώρου */
+  }
 }
 
 /* Title and Subtitle Styles */
@@ -942,6 +973,16 @@ img {
 }
 
 /* Layout */
+@media (max-width: 768px) {
+  .flex {
+    flex-direction: column; /* Τα στοιχεία στοιχίζονται κάθετα */
+  }
+
+  .fs-inquiry__aside {
+    width: 100%;  /* Κάνει την κάρτα να παίρνει το πλήρες πλάτος */
+    padding: 20px; /* Εξασφαλίζει ότι η κάρτα είναι άνετη σε μικρές οθόνες */
+  }
+}
 @media (min-width: 768px) {
   .flex-row {
     flex-direction: row;
